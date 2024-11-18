@@ -11,15 +11,11 @@ import { UserDTO } from './user.dto';
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
+import { ModuleRef } from '@nestjs/core';
 
 @Controller('users')
 export class UserController {
-  userService: UserService;
-
-  constructor() {
-    const userRepo = new UserRepository();
-    this.userService = new UserService(userRepo);
-  }
+  constructor(private moduleRef: ModuleRef) {}
 
   @Get()
   getAllUsers() {
@@ -31,7 +27,8 @@ export class UserController {
 
   @Post('add')
   createUser(@Body() user: UserDTO): UserDTO {
-    const userReal = this.userService.createUser(user);
+    const userService = this.moduleRef.get(UserService);
+    const userReal = userService.createUser(user);
 
     console.log(user);
     console.log(userReal);
