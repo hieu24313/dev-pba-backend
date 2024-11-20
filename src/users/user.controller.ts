@@ -30,8 +30,8 @@ export class UserController {
     const userService = this.moduleRef.get(UserService);
     const userReal = userService.createUser(user);
 
-    console.log(user);
-    console.log(userReal);
+    // console.log(user);
+    // console.log(userReal);
     return userReal;
   }
 
