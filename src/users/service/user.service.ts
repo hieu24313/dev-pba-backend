@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserDTO } from '../user.dto';
+import { UpdateUserDTO, UserDTO } from '../user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user.entity';
 import { Repository } from 'typeorm';
@@ -15,23 +15,21 @@ export class UserService {
   ) {}
 
   async createUser(userDTO: UserDTO): Promise<UserDTO> {
-    const new_User = await this.userRepository.save(userDTO);
     if (userDTO.password) {
       userDTO.password = await this.passwordService.hashPassword(
         userDTO.password
       );
     }
-
-    // console.log(new_User);
+    const new_User = await this.userRepository.save(userDTO);
     return plainToInstance(UserDTO, new_User, {
       excludeExtraneousValues: true,
     });
   }
 
-  async updateUser(userId: string, data: Partial<UserDTO>) {
-    if (data.password) {
-      data.password = await this.passwordService.hashPassword(data.password);
-    }
+  async updateUser(userId: string, data: UpdateUserDTO) {
+    // if (data.password) {
+    //   data.password = await this.passwordService.hashPassword(data.password);
+    // }
 
     await this.userRepository.update(userId, data);
 

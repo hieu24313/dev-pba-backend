@@ -26,3 +26,10 @@ export class UserDTO extends BaseDTO {
   @Expose()
   name?: string;
 }
+
+export class UpdateUserDTO {
+  @Expose()
+  full_name: string;
+
+  // password: string;
+}

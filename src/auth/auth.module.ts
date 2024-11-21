@@ -8,17 +8,17 @@ import { AuthGuard } from './auth.guard';
 @Module({
   providers: [
     AuthService,
-    {
-      provide: 'APP_GUARD',
-      useClass: AuthGuard,
-    },
+    // {
+    //   provide: 'APP_GUARD',
+    //   useClass: AuthGuard,
+    // },
   ],
   imports: [
     forwardRef(() => UserModule),
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY ?? '123456',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '30d' },
     }),
   ],
   controllers: [AuthController],

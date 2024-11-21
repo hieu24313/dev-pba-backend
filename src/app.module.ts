@@ -19,6 +19,7 @@ dotenv.config();
       database: process.env.DB_DATABASE ?? 'nestdb',
       entities: [UserEntity],
       synchronize: true,
+      logging: true,
     }),
   ],
 })

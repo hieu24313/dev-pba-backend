@@ -8,17 +8,22 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body) {
-    // console.log(req['phone_number']);
-
     const data = await this.authService.loginService(
       body['phone_number'],
       body['password']
     );
-    // console.log(data);
+    if (data) {
+      return {
+        message: 'Đăng nhập thành công',
+        status_code: 200,
+        data: data,
+      };
+    }
+
     return {
-      message: 'Đăng nhập thành công',
-      status_code: 200,
-      data: data,
+      message: 'Sai tài khoản hoặc mật khẩu',
+      status_code: 400,
+      data: {},
     };
   }
 }
