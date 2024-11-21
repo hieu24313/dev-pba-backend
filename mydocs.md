@@ -3,6 +3,10 @@ I. Base
 - Các lệnh install nest, tạo project
   $ npm i -g @nestjs/cli
   $ nest new project-name
+  $ npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+  $ npm install --save @nestjs/jwt
+  $ npm i bcrypt
+  $ npm i -D @types/bcrypt
 
 - cấu trúc gồm các package quản lý
   mỗi phần của project:
@@ -24,8 +28,11 @@ I. Base
     app.module.ts
 
 - Hoạt động: main.ts nơi chạy đầu tiên khi run -> tạo app
+- Luồng chạy của request khi tạo 1 obj:
 
-II. Chi tiết hơn
+  - Nhận request ở controller -> validation bằng DTO -> gọi và xử lý ở service -> tương tác với database bằng repository -> return obj đã tạo
+
+    II. Chi tiết hơn
 
 - validator dùng class validator
 - transform dữ liệu từ json như body dùng class-transform

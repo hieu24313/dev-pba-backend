@@ -1,8 +1,8 @@
-import { Expose, plainToInstance } from 'class-transformer';
+import { Expose, instanceToPlain, plainToInstance } from 'class-transformer';
 
 export abstract class BaseDTO {
   @Expose()
-  id: number;
+  id: string;
 
   @Expose() // Trả về cho client
   created_at: Date;

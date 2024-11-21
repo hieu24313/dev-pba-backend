@@ -1,47 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { UserDTO } from './user.dto';
-import { plainToClass, plainToInstance } from 'class-transformer';
-import { UserService } from './user.service';
-import { UserRepository } from './user.repository';
-import { ModuleRef } from '@nestjs/core';
+import { UserService } from './service/user.service';
+import { plainToInstance } from 'class-transformer';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UserController {
-  constructor(private moduleRef: ModuleRef) {}
+  constructor(private userService: UserService) {}
 
   @Get()
-  getAllUsers() {
-    return [
-      { id: 1, name: 'Hiếu' },
-      { id: 2, name: 'Lam' },
-    ];
-  }
-
-  @Post('add')
-  createUser(@Body() user: UserDTO): UserDTO {
-    const userService = this.moduleRef.get(UserService);
-    const userReal = userService.createUser(user);
-
-    // console.log(user);
-    // console.log(userReal);
-    return userReal;
-  }
-
-  @Get(':id')
-  getDetailUser() {
+  getAllUser() {
     return {
-      id: 1,
-      username: 'hieu24313',
-      password: '123',
-      full_name: 'Nguyễn Minh Hiếu',
+      message: 'Danh sách người dùng',
+      status_code: 200,
+      data: [],
     };
+  }
+
+  @Post()
+  @UseGuards(AuthGuard)
+  async createUser(@Body() userDTO: UserDTO): Promise<UserDTO> {
+    console.log(
+      plainToInstance(UserDTO, userDTO, { excludeExtraneousValues: true })
+    );
+
+    const user = await this.userService.createUser(userDTO);
+    return user;
   }
 }
