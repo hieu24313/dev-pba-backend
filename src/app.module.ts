@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { UserModule } from './users/user.module';
 import { UserEntity } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
 dotenv.config();
 
 @Module({
@@ -19,8 +20,9 @@ dotenv.config();
       database: process.env.DB_DATABASE ?? 'nestdb',
       entities: [UserEntity],
       synchronize: true,
-      logging: true,
+      // logging: true,
     }),
+    ChatModule,
   ],
 })
 export class AppModule {}

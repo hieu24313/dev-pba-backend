@@ -2,34 +2,74 @@
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import { IsEmpty, IsNotEmpty, Length } from 'class-validator';
 import { BaseDTO } from '../common/base.dto';
+import { UserGender } from './user.entity';
 
 export class UserDTO extends BaseDTO {
-  @IsNotEmpty()
+  @Expose()
+  id: string;
+
+  @Expose()
+  full_name: string;
+
   // @Length(5, 50)
   @Expose() // Trả về cho client
   username: string;
 
   @Expose()
-  @IsNotEmpty()
   phone_number: string;
 
   @IsNotEmpty()
-  // @Expose()
+  @Length(8)
   password: string;
 
-  @IsNotEmpty()
   @Expose()
-  full_name: string;
+  gender: UserGender;
 
-  // Custom field
-  @Transform(({ obj }) => 'Xin chào, ' + obj.full_name)
   @Expose()
-  name?: string;
+  skill_rating: number;
+
+  @Expose()
+  avatar: string;
+
+  @Expose()
+  email: string;
+
+  @Expose()
+  created_at: Date;
+
+  @Expose()
+  updated_at: Date;
 }
 
-export class UpdateUserDTO {
+export class UpdateUserDTO extends BaseDTO {
+  @Expose()
+  id: string;
+
   @Expose()
   full_name: string;
 
-  // password: string;
+  // @Length(5, 50)
+  @Expose() // Trả về cho client
+  username: string;
+
+  @Expose()
+  phone_number: string;
+
+  @Expose()
+  gender: UserGender;
+
+  @Expose()
+  skill_rating: number;
+
+  @Expose()
+  avatar: string;
+
+  @Expose()
+  email: string;
+
+  @Expose()
+  created_at: Date;
+
+  @Expose()
+  updated_at: Date;
 }

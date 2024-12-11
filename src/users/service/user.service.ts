@@ -15,6 +15,14 @@ export class UserService {
   ) {}
 
   async createUser(userDTO: UserDTO): Promise<UserDTO> {
+    const user = await this.userRepository.findOne({
+      where: { phone_number: userDTO.phone_number },
+    });
+
+    if (user) {
+      return null;
+    }
+
     if (userDTO.password) {
       userDTO.password = await this.passwordService.hashPassword(
         userDTO.password
@@ -34,7 +42,7 @@ export class UserService {
     await this.userRepository.update(userId, data);
 
     return plainToInstance(
-      UserDTO,
+      UpdateUserDTO,
       await this.userRepository.findOne({ where: { id: userId } }),
       {
         excludeExtraneousValues: true,
@@ -45,7 +53,7 @@ export class UserService {
   // Hàm tìm một người dùng bằng tên người dùng (hoặc bất kỳ trường nào khác)
   async findOne(phone_number: string): Promise<UserDTO | undefined> {
     return await this.userRepository.findOne({
-      where: { phone_number },
+      where: { phone_number: phone_number },
     });
   }
 }

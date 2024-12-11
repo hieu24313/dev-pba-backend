@@ -14,6 +14,10 @@ export class AuthService {
   async loginService(phone_number: string, password: string) {
     const user = await this.userService.findOne((phone_number = phone_number));
     // xử lý kiểm tra password
+
+    if (user == null) {
+      return null;
+    }
     const isComparePassword = await this.passwordService.comparePassword(
       password,
       user.password
