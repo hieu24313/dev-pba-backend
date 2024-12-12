@@ -13,7 +13,7 @@ export enum UserGender {
   OTHER = 'Khác',
 }
 
-@Entity()
+@Entity('user')
 export class UserEntity extends BaseEntity {
   @Column()
   full_name: string;
