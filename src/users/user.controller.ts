@@ -32,7 +32,6 @@ export class UserController {
   }
 
   @Get('detail')
-  @UseGuards(AuthGuard)
   async getUserDetail(@Request() request) {
     const user = await this.userService.findOne(request.user.phone_number);
     // const user = request.user;
@@ -46,7 +45,7 @@ export class UserController {
   }
 
   @Post()
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('avatar')) // Xử lý trường "avatar" trong FormData
   async createUser(
     @UploadedFile() file: Express.Multer.File, // File upload
