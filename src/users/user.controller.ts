@@ -25,7 +25,7 @@ export class UserController {
   @Get()
   getAllUser() {
     return {
-      message: 'Danh sách người dùng',
+      message: 'Danh sách người dùng.',
       status_code: 200,
       data: [],
     };
