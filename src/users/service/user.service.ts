@@ -14,6 +14,9 @@ export class UserService {
     private readonly passwordService: PasswordService
   ) {}
 
+  async getUsers() {
+    return await this.userRepository.find();
+  }
   async createUser(userDTO: UserDTO): Promise<UserDTO> {
     const user = await this.userRepository.findOne({
       where: { phone_number: userDTO.phone_number },

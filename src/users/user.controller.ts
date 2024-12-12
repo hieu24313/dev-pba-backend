@@ -23,11 +23,15 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  getAllUser() {
+  async getAllUser() {
+    const users = await this.userService.getUsers();
+    const data_user = plainToInstance(UpdateUserDTO, users, {
+      excludeExtraneousValues: true,
+    });
     return {
       message: 'Danh sách người dùng.',
       status_code: 200,
-      data: [],
+      data: data_user,
     };
   }
 

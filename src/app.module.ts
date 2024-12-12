@@ -18,7 +18,7 @@ dotenv.config();
       port: parseInt(process.env.DB_PORT) ?? 5432,
       username: process.env.DB_USERNAME ?? 'postgres',
       password: process.env.DB_PASSWORD ?? 'Admin@123',
-      database: process.env.DB_DATABASE ?? 'nestdb',
+      database: process.env.DB_DATABASE ?? 'pbd_uat',
       entities: [UserEntity],
       synchronize: true, // Đảm bảo rằng schema được đồng bộ
       // logging: true, // Nếu cần bật logging
